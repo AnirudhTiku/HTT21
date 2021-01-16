@@ -20,7 +20,7 @@ class GravityMode extends React.Component{
     
         var engine = Engine.create();
         
-        engine.world.gravity.y = 0;
+        engine.world.gravity.y = 2;
 
         var render = Render.create({
           element: this.refs.scene,
@@ -31,9 +31,7 @@ class GravityMode extends React.Component{
             wireframes: false,
           }
         });
-    
-        var ballA = Bodies.circle(210, 100, 30, { restitution: 1, frictionAir: 0, friction: 0 });
-        var ballB = Bodies.circle(110, 50, 30, { restitution: 1, frictionAir: 0, friction: 0 });
+  
         World.add(engine.world, [
           // walls
           Bodies.rectangle(960, 0, 1920, 100, { isStatic: true, restitution: 1, friction: 0 }),
@@ -42,7 +40,6 @@ class GravityMode extends React.Component{
           Bodies.rectangle(1920, 483, 100, 966, { isStatic: true, restitution: 1, friction: 0 })
         ]);
     
-        World.add(engine.world, [ballA, ballB]);
     
         // add mouse control
         var mouse = Mouse.create(render.canvas),
@@ -63,8 +60,11 @@ class GravityMode extends React.Component{
         // });
 
         document.addEventListener('keydown', event => {
-            var test = Bodies.circle(Math.random()*1800, Math.random()*860, 30, { restitution: 1, frictionAir: 0, friction: 0  })
+            var test = Bodies.circle(Math.random()*1800, Math.random()*860, 30, { restitution: 0.5, frictionAir: 0, friction: 0  })
             var velocity = Vector.create(Math.random()*50 - 25, Math.random()*50 - 25)
+            var scale = Math.random()+0.5
+            Body.scale(test, scale, scale)
+            Body.setDensity(test, scale)
             Body.setVelocity(test, velocity)
             World.add(engine.world, test);
         });
