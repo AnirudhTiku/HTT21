@@ -64,7 +64,7 @@ class GravityMode extends React.Component{
 
         document.addEventListener('keydown', event => {
             var test = Bodies.circle(Math.random()*1800, Math.random()*860, 30, { restitution: 1, frictionAir: 0, friction: 0  })
-            var velocity = Vector.create(Math.random()*25, Math.random()*25)
+            var velocity = Vector.create(Math.random()*50 - 25, Math.random()*50 - 25)
             Body.setVelocity(test, velocity)
             World.add(engine.world, test);
         });
