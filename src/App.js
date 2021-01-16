@@ -1,10 +1,12 @@
 import './App.css';
+import { Switch, Route } from 'react-router-dom';
+import MainRouter from './modules/MainRouter.js';
 
 function App() {
   return (
-    <div className="App">
-      KEYBored
-    </div>
+    <Switch>
+      <Route path="/" component={MainRouter}/>
+    </Switch>
   );
 }
 
