@@ -5,7 +5,10 @@ import Matter from 'matter-js'
 class GravityMode extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+          circles: [],
+          counter: 0
+        };
       }
     
       componentDidMount() {
@@ -66,7 +69,12 @@ class GravityMode extends React.Component{
             Body.scale(test, scale, scale)
             Body.setDensity(test, scale)
             Body.setVelocity(test, velocity)
-            World.add(engine.world, test);
+            this.state.circles[this.state.counter] = test
+            World.add(engine.world, this.state.circles[this.state.counter]);
+            this.state.counter += 1;
+            if(this.state.counter > 50){
+              World.remove(engine.world, this.state.circles[(this.state.counter)-50]);
+            }
         });
     
         Engine.run(engine);
