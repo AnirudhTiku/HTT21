@@ -8,6 +8,7 @@ export default function MainRouter(props){
         <Switch>
             <Route path="/float"/> 
             <Route path="/gravity"/>
+            <Route path="/destroy"/>
             <Route path="/" component={Main}/>
         </Switch>
     )
