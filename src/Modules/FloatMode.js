@@ -5,7 +5,7 @@ import Matter from 'matter-js'
 class FloatMode extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {balls: []};
       }
     
       componentDidMount() {
@@ -63,10 +63,15 @@ class FloatMode extends React.Component{
         // });
 
         document.addEventListener('keydown', event => {
-            var test = Bodies.circle(Math.random()*1800, Math.random()*860, 30, { restitution: 1, frictionAir: 0, friction: 0  })
+            var ball = Bodies.circle(Math.random()*1800, Math.random()*860, 30, { restitution: 1, frictionAir: 0, friction: 0  })
             var velocity = Vector.create(Math.random()*50 - 25, Math.random()*50 - 25)
-            Body.setVelocity(test, velocity)
-            World.add(engine.world, test);
+            Body.setVelocity(ball, velocity)
+            this.state.balls.push(ball);
+            World.add(engine.world, ball);
+            if(this.state.balls.length > 20){
+              World.remove(engine.world, this.state.balls[this.state.balls.length-20])
+              this.state.balls.splice(1,0)
+            }
         });
     
         Engine.run(engine);
