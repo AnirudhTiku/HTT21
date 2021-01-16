@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
-import Main from 'Main.js'
+import Main from 'src/modules/Main.js';
 
 export default function MainRouter(props){
 
