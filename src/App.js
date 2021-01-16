@@ -1,10 +1,14 @@
 import './App.css';
-import './Modules/GravityMode';
-import GravityMode from './Modules/GravityMode';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import MainRouter from './modules/MainRouter.js';
 
 function App() {
   return (
-    <GravityMode />
+    <Router>
+      <Switch>
+       <Route path="/" component={MainRouter}/>
+      </Switch>
+    </Router>
   );
 }
 
