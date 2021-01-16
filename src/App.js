@@ -1,10 +1,10 @@
 import './App.css';
+import './Modules/GravityMode';
+import GravityMode from './Modules/GravityMode';
 
 function App() {
   return (
-    <div className="App">
-      KEYBored
-    </div>
+    <GravityMode />
   );
 }
 
