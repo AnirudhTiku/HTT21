@@ -13,8 +13,10 @@ class GravityMode extends React.Component{
           Render = Matter.Render,
           World = Matter.World,
           Bodies = Matter.Bodies,
+          Body = Matter.Body,
           Mouse = Matter.Mouse,
-          MouseConstraint = Matter.MouseConstraint;
+          MouseConstraint = Matter.MouseConstraint,
+          Vector = Matter.Vector;
     
         var engine = Engine.create();
         
@@ -61,7 +63,10 @@ class GravityMode extends React.Component{
         // });
 
         document.addEventListener('keydown', event => {
-            World.add(engine.world, Bodies.circle(Math.random()*1800, Math.random()*860, 30, { restitution: 0.7, velocity: [Math.random()*20, Math.random()*20] }));
+            var test = Bodies.circle(Math.random()*1800, Math.random()*860, 30, { restitution: 1, frictionAir: 0, friction: 0  })
+            var velocity = Vector.create(Math.random()*25, Math.random()*25)
+            Body.setVelocity(test, velocity)
+            World.add(engine.world, test);
         });
     
         Engine.run(engine);
