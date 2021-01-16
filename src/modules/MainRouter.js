@@ -1,15 +1,24 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import GravityMode from './GravityMode';
 import Main from './Main';
 
-export default function MainRouter(props){
+function MainRouter(props){
 
     return(
         <Switch>
-            <Route path="/float"/> 
-            <Route path="/gravity"/>
+            <Route exact path="/float">
+
+            </Route> 
+            <Route exact path="/gravity">
+                <GravityMode/>
+            </Route> 
             <Route path="/destroy"/>
             <Route path="/" component={Main}/>
         </Switch>
     )
 }
+
+export default MainRouter
+
+
