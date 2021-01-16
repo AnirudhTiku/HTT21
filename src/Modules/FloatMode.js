@@ -68,8 +68,8 @@ class FloatMode extends React.Component{
             Body.setVelocity(ball, velocity)
             this.state.balls.push(ball);
             World.add(engine.world, ball);
-            if(this.state.balls.length > 20){
-              World.remove(engine.world, this.state.balls[this.state.balls.length-20])
+            if(this.state.balls.length > 50){
+              World.remove(engine.world, this.state.balls[this.state.balls.length-50])
               this.state.balls.splice(1,0)
             }
         });
