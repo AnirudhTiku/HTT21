@@ -16,28 +16,28 @@ class GravityMode extends React.Component{
           Mouse = Matter.Mouse,
           MouseConstraint = Matter.MouseConstraint;
     
-        var engine = Engine.create({
-          // positionIterations: 20
-        });
-    
+        var engine = Engine.create();
+        
+        engine.world.gravity.y = 0;
+
         var render = Render.create({
           element: this.refs.scene,
           engine: engine,
           options: {
-            width: 600,
-            height: 600,
-            wireframes: false
+            width: 1920,
+            height: 965,
+            wireframes: false,
           }
         });
     
-        var ballA = Bodies.circle(210, 100, 30, { restitution: 0.5 });
-        var ballB = Bodies.circle(110, 50, 30, { restitution: 0.5 });
+        var ballA = Bodies.circle(210, 100, 30, { restitution: 1, frictionAir: 0, friction: 0 });
+        var ballB = Bodies.circle(110, 50, 30, { restitution: 1, frictionAir: 0, friction: 0 });
         World.add(engine.world, [
           // walls
-          Bodies.rectangle(200, 0, 600, 50, { isStatic: true }),
-          Bodies.rectangle(200, 600, 600, 50, { isStatic: true }),
-          Bodies.rectangle(260, 300, 50, 600, { isStatic: true }),
-          Bodies.rectangle(0, 300, 50, 600, { isStatic: true })
+          Bodies.rectangle(960, 0, 1920, 100, { isStatic: true, restitution: 1, friction: 0 }),
+          Bodies.rectangle(960, 965, 1920, 100, { isStatic: true, restitution: 1, friction: 0 }),
+          Bodies.rectangle(0, 483, 100, 966, { isStatic: true, restitution: 1, friction: 0 }),
+          Bodies.rectangle(1920, 483, 100, 966, { isStatic: true, restitution: 1, friction: 0 })
         ]);
     
         World.add(engine.world, [ballA, ballB]);
@@ -59,6 +59,10 @@ class GravityMode extends React.Component{
         // Matter.Events.on(mouseConstraint, "mousedown", function(event) {
         //   World.add(engine.world, Bodies.circle(150, 50, 30, { restitution: 0.7 }));
         // });
+
+        document.addEventListener('keydown', event => {
+            World.add(engine.world, Bodies.circle(Math.random()*1800, Math.random()*860, 30, { restitution: 0.7, velocity: [Math.random()*20, Math.random()*20] }));
+        });
     
         Engine.run(engine);
     
