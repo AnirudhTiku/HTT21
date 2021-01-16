@@ -63,13 +63,13 @@ class GravityMode extends React.Component{
         // });
 
         document.addEventListener('keydown', event => {
-            var test = Bodies.circle(Math.random()*1800, Math.random()*860, 30, { restitution: 0.5, frictionAir: 0, friction: 0  })
+            var ball = Bodies.circle(Math.random()*1800, Math.random()*860, 30, { restitution: 0.5, frictionAir: 0, friction: 0  })
             var velocity = Vector.create(Math.random()*50 - 25, Math.random()*50 - 25)
             var scale = Math.random()+0.5
-            Body.scale(test, scale, scale)
-            Body.setDensity(test, scale)
-            Body.setVelocity(test, velocity)
-            this.state.circles[this.state.counter] = test
+            Body.scale(ball, scale, scale)
+            Body.setDensity(ball, scale)
+            Body.setVelocity(ball, velocity)
+            this.state.circles[this.state.counter] = ball
             World.add(engine.world, this.state.circles[this.state.counter]);
             this.state.counter += 1;
             if(this.state.counter > 50){
