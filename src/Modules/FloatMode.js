@@ -4,26 +4,35 @@ import { Button } from '@material-ui/core';
 import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
 import './FloatMode.css'
 
+const worldHeight = window.innerHeight-42;
+const worldWidth = window.innerWidth-50;
+  var Engine = Matter.Engine,
+  Render = Matter.Render,
+  World = Matter.World,
+  Bodies = Matter.Bodies,
+  Body = Matter.Body,
+  Mouse = Matter.Mouse,
+  MouseConstraint = Matter.MouseConstraint,
+  Vector = Matter.Vector;
+
+var engine = Engine.create();
+
+
 class FloatMode extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {balls: []};
+        this.state = {
+          balls: []
+        };
+      }
+
+      deleteBalls(event){
+        this.state.balls.forEach((ball) => {World.remove(engine.world, ball)})
+        this.setState({balls: []})
       }
     
+
     componentDidMount() {
-      
-      const worldHeight = window.innerHeight-42;
-      const worldWidth = window.innerWidth-50;
-        var Engine = Matter.Engine,
-        Render = Matter.Render,
-        World = Matter.World,
-        Bodies = Matter.Bodies,
-        Body = Matter.Body,
-        Mouse = Matter.Mouse,
-        MouseConstraint = Matter.MouseConstraint,
-        Vector = Matter.Vector;
-  
-      var engine = Engine.create();
       
       engine.world.gravity.y = 0;
 
@@ -80,6 +89,8 @@ class FloatMode extends React.Component{
   
       Render.run(render);
     }
+
+
     
       render() {
         return (
@@ -87,7 +98,7 @@ class FloatMode extends React.Component{
           <Button variant="contained" color="secondary" onClick={()=>console.log('data')}>
             Show Data
           </Button>
-          <DeleteSweepIcon style={{fill:'orange', cursor:'pointer'}}/>
+          <DeleteSweepIcon style={{fill:'orange', cursor:'pointer'}} onClick={() => {this.deleteBalls()}}/>
         </div>
         );
       }
