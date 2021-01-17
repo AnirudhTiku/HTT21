@@ -4,6 +4,12 @@ import { Button } from '@material-ui/core';
 import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
 import BounceSfx from "../sounds/Sans speak.wav"
 import './FloatMode.css'
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 
 const worldHeight = window.innerHeight-42;
 const worldWidth = window.innerWidth-50;
@@ -23,9 +29,18 @@ class FloatMode extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-          balls: []
+          balls: [],
+          open: false
         };
       }
+
+      handleClickOpen = () => {
+        this.setState({balls: this.state.balls, open: true});
+      };
+    
+      handleClose = () => {
+        this.setState({balls: this.state.balls, open: false});
+      };
 
 
       deleteBalls(event){
@@ -116,9 +131,30 @@ class FloatMode extends React.Component{
       render() {
         return (
         <div ref="scene" style={{backgroundColor:'black', width:'100wh', height:'100vh'}}>
-          <Button variant="contained" color="secondary" onClick={()=>console.log('data')}>
+          <Button variant="contained" color="secondary" onClick={()=>{
+            console.log('data')
+            this.handleClickOpen()
+        }}>
             Show Data
           </Button>
+          <Dialog
+            open={this.state.open}
+            onClose={() => this.handleClose()} 
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">{"Statistics"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Some stats go here I guess
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => this.handleClose()}  color="primary" autoFocus>
+                Back
+              </Button>
+            </DialogActions>
+          </Dialog>
           <DeleteSweepIcon style={{fill:'orange', cursor:'pointer'}} onClick={() => {this.deleteBalls()}}/>
         </div>
         );
