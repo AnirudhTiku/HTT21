@@ -80,7 +80,11 @@ class FloatMode extends React.Component{
         if(shape === 2){
           shape -= 1
         }
-            var ball = Bodies.polygon(Math.random()*1800, Math.random()*860, shape, 30, { restitution: 1, frictionAir: 0, friction: 0  })
+            var ball = Bodies.polygon(Math.random()*1800, Math.random()*860, shape, 30, { restitution: 1, frictionAir: 0, friction: 0,
+              render:{
+                strokeStyle: "black",
+                lineWidth: 5
+              } })
             var velocity = Vector.create(Math.random()*50 - 25, Math.random()*50 - 25)
             var scale = Math.random()+0.5
             Body.scale(ball, scale, scale)
