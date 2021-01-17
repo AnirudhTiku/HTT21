@@ -78,7 +78,7 @@ class FloatMode extends React.Component{
       document.addEventListener('keydown', event => {
         var shape = Math.floor(Math.random()*3)
 
-        if(shape = 1){
+        if(shape === 1){
         var ball = Bodies.circle(Math.random()*1800, Math.random()*860, 30, { restitution: 1, frictionAir: 0, friction: 0  })
         var velocity = Vector.create(Math.random()*50 - 25, Math.random()*50 - 25)
         var scale = Math.random()+0.5
@@ -92,7 +92,7 @@ class FloatMode extends React.Component{
             this.state.balls.splice(1,0)
           }
         }
-        if(shape = 2){
+        if(shape === 2){
           var ball = Bodies.rectangle(Math.random()*1800, Math.random()*860, 30, 30, { restitution: 1, frictionAir: 0, friction: 0  })
           var velocity = Vector.create(Math.random()*50 - 25, Math.random()*50 - 25)
           var scale = Math.random()+0.5
@@ -106,7 +106,7 @@ class FloatMode extends React.Component{
               this.state.balls.splice(1,0)
             }
           }
-          if(shape = 3){
+          if(shape === 3){
             var ball = Bodies.polygon(Math.random()*1800, Math.random()*860, 3, 30, { restitution: 1, frictionAir: 0, friction: 0  })
             var velocity = Vector.create(Math.random()*50 - 25, Math.random()*50 - 25)
             var scale = Math.random()+0.5
