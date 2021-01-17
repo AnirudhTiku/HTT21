@@ -2,6 +2,7 @@ import React from 'react';
 import Matter from 'matter-js';
 import { Button } from '@material-ui/core';
 import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
+import BounceSfx from "../sounds/Sans speak.wav"
 import './FloatMode.css'
 
 const worldHeight = window.innerHeight-42;
@@ -25,6 +26,7 @@ class FloatMode extends React.Component{
           balls: []
         };
       }
+
 
       deleteBalls(event){
         this.state.balls.forEach((ball) => {World.remove(engine.world, ball)})
@@ -86,6 +88,11 @@ class FloatMode extends React.Component{
             World.remove(engine.world, this.state.balls[this.state.balls.length-50])
             this.state.balls.splice(1,0)
           }
+      });
+
+      Matter.Events.on(engine, 'collisionStart', function(event) {
+        var audio = new Audio(BounceSfx)
+        audio.play()
       });
   
       Engine.run(engine);
