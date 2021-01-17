@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Matter from 'matter-js';
 import { Button } from '@material-ui/core';
 import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
+import { useHistory } from 'react-router-dom'
 
 const worldHeight = window.innerHeight - 42;
 const worldWidth = window.innerWidth - 50;
@@ -14,6 +15,7 @@ var Engine = Matter.Engine,
   MouseConstraint = Matter.MouseConstraint,
   Vector = Matter.Vector;
 var engine = Engine.create();
+let render = null;
 
 class GravityMode extends React.Component {
   constructor(props) {
@@ -23,6 +25,9 @@ class GravityMode extends React.Component {
     };
   }
 
+  goBack(){
+    this.props.history.push("/")
+  }
 
   removeBalls() {
     this.state.circles.forEach((circle) => {
@@ -31,9 +36,16 @@ class GravityMode extends React.Component {
     this.setState({ circles: [] })
   }
 
+  componentWillUnmount(){
+    render.canvas.remove();
+    render.canvas= null;
+    render.context = null;
+    render.textures = {};
+  }
+
   componentDidMount() {
     engine.world.gravity.y = 2;
-    var render = Render.create({
+    render = Render.create({
       element: this.refs.scene,
       engine: engine,
       options: {
@@ -42,6 +54,7 @@ class GravityMode extends React.Component {
         wireframes: false,
       }
     });
+
 
     World.add(engine.world, [
       // walls
@@ -95,9 +108,15 @@ class GravityMode extends React.Component {
     return (
       <div ref="scene" style={{ backgroundColor: 'black', width: '100wh', height: '100vh' }}>
         <div>
+
+        <Button variant="contained" color="secondary" onClick={()=>this.goBack()} style={{marginRight: 20}}>
+            Back
+        </Button>
+
           <Button variant="contained" color="secondary" onClick={() => console.log('data')}>
             Show Data
-            </Button>
+          </Button>
+          
           <DeleteSweepIcon style={{ fill: 'orange', cursor: 'pointer', width: 30, height: 30, position: 'absolute' }} onClick={() => { this.removeBalls() }} />
         </div>
       </div>
