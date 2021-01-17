@@ -74,9 +74,12 @@ class FloatMode extends React.Component{
       // });
 
       document.addEventListener('keydown', event => {
-          var ball = Bodies.circle(Math.random()*1800, Math.random()*860, 30, { restitution: 1, frictionAir: 0, friction: 0  })
-          var velocity = Vector.create(Math.random()*50 - 25, Math.random()*50 - 25)
-          Body.setVelocity(ball, velocity)
+        var ball = Bodies.circle(Math.random()*1800, Math.random()*860, 30, { restitution: 1, frictionAir: 0, friction: 0  })
+        var velocity = Vector.create(Math.random()*50 - 25, Math.random()*50 - 25)
+        var scale = Math.random()+0.5
+        Body.scale(ball, scale, scale)
+        Body.setDensity(ball, scale)
+        Body.setVelocity(ball, velocity)
           this.state.balls.push(ball);
           World.add(engine.world, ball);
           if(this.state.balls.length > 50){
