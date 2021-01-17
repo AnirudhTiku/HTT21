@@ -94,11 +94,11 @@ class GravityMode extends React.Component {
           Body.scale(ball, scale, scale)
           Body.setDensity(ball, scale)
           Body.setVelocity(ball, velocity)
-            this.state.balls.push(ball);
+            this.state.circles.push(ball);
             World.add(engine.world, ball);
-            if(this.state.balls.length > 50){
-              World.remove(engine.world, this.state.balls[this.state.balls.length-50])
-              this.state.balls.splice(1,0)
+            if(this.state.circles.length > 50){
+              World.remove(engine.world, this.state.circles[this.state.circles.length-50])
+              this.state.circles.splice(1,0)
             }
           
     });
