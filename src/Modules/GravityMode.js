@@ -25,10 +25,6 @@ class GravityMode extends React.Component {
     };
   }
 
-  goBack(){
-    this.props.history.push("/")
-  }
-
   removeBalls() {
     this.state.circles.forEach((circle) => {
       World.remove(engine.world, circle);
@@ -116,10 +112,6 @@ class GravityMode extends React.Component {
     return (
       <div ref="scene" style={{ backgroundColor: 'black', width: '100wh', height: '100vh' }}>
         <div>
-
-        <Button variant="contained" color="secondary" onClick={()=>this.goBack()} style={{marginRight: 20}}>
-            Back
-        </Button>
 
           <Button variant="contained" color="secondary" onClick={() => console.log('data')}>
             Show Data
