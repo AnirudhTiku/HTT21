@@ -11,18 +11,20 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 
-const worldHeight = window.innerHeight-42;
-const worldWidth = window.innerWidth-50;
-  var Engine = Matter.Engine,
+const worldHeight = window.innerHeight - 42;
+const worldWidth = window.innerWidth - 50;
+var Engine = Matter.Engine,
   Render = Matter.Render,
   World = Matter.World,
   Bodies = Matter.Bodies,
   Body = Matter.Body,
+  Runner = Matter.Runner,
   Mouse = Matter.Mouse,
   MouseConstraint = Matter.MouseConstraint,
   Vector = Matter.Vector;
-
 var engine = Engine.create();
+var runner = Runner.create();
+let render = null;
 
 
 class FloatMode extends React.Component{
@@ -49,11 +51,23 @@ class FloatMode extends React.Component{
       }
     
 
+      componentWillUnmount(){
+        World.clear(engine.world);
+        Engine.clear(engine);
+        Render.stop(render);
+        render.canvas.remove();
+        Runner.stop(runner);
+        render.canvas = null;
+        render.context = null;
+        render.textures = {};
+  }
+
+
     componentDidMount() {
       
       engine.world.gravity.y = 0;
 
-      var render = Render.create({
+       render = Render.create({
         element: this.refs.scene,
         engine: engine,
         options: {
@@ -120,10 +134,10 @@ class FloatMode extends React.Component{
         var audio = new Audio(BounceSfx)
         audio.play()
       });
-  
-      Engine.run(engine);
+
   
       Render.run(render);
+      Runner.run(runner, engine);
     }
 
 

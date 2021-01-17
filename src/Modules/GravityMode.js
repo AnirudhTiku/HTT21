@@ -15,10 +15,12 @@ var Engine = Matter.Engine,
   World = Matter.World,
   Bodies = Matter.Bodies,
   Body = Matter.Body,
+  Runner = Matter.Runner,
   Mouse = Matter.Mouse,
   MouseConstraint = Matter.MouseConstraint,
   Vector = Matter.Vector;
 var engine = Engine.create();
+var runner = Runner.create();
 let render = null;
 
 class GravityMode extends React.Component {
@@ -28,6 +30,29 @@ class GravityMode extends React.Component {
       circles: [],
       open: false
     };
+  }
+
+  handleEntitySpawn(){
+    var shape = Math.floor(Math.random()*7 + 1)
+    if(shape === 2){
+      shape -= 1
+    }
+        var ball = Bodies.polygon(Math.random()*1800, Math.random()*860, shape, 30, { restitution: 0.5, frictionAir: 0, friction: 0,
+        render:{
+          strokeStyle: "black",
+          lineWidth: 5
+        } })
+        var velocity = Vector.create(Math.random()*50 - 25, Math.random()*50 - 25)
+        var scale = Math.random()+0.7
+        Body.scale(ball, scale, scale)
+        Body.setDensity(ball, scale)
+        Body.setVelocity(ball, velocity)
+          this.state.circles.push(ball);
+          World.add(engine.world, ball);
+          if(this.state.circles.length > 100){
+            World.remove(engine.world, this.state.circles[this.state.circles.length-100])
+            this.state.circles.splice(1,0)
+          }
   }
 
   handleClickOpen = () => {
@@ -46,10 +71,17 @@ class GravityMode extends React.Component {
   }
 
   componentWillUnmount(){
-    render.canvas.remove();
-    render.canvas= null;
-    render.context = null;
-    render.textures = {};
+            World.clear(engine.world);
+            Engine.clear(engine);
+            Render.stop(render);
+            render.canvas.remove();
+            Runner.stop(runner);
+            document.removeEventListener('keydown',  event => {
+              this.handleEntitySpawn()
+        })
+            render.canvas = null;
+            render.context = null;
+            render.textures = {};
   }
 
   componentDidMount() {
@@ -93,32 +125,11 @@ class GravityMode extends React.Component {
     // });
 
     document.addEventListener('keydown', event => {
-      var shape = Math.floor(Math.random()*7 + 1)
-      if(shape === 2){
-        shape -= 1
-      }
-          var ball = Bodies.polygon(Math.random()*1800, Math.random()*860, shape, 30, { restitution: 0.5, frictionAir: 0, friction: 0,
-          render:{
-            strokeStyle: "black",
-            lineWidth: 5
-          } })
-          var velocity = Vector.create(Math.random()*50 - 25, Math.random()*50 - 25)
-          var scale = Math.random()+0.7
-          Body.scale(ball, scale, scale)
-          Body.setDensity(ball, scale)
-          Body.setVelocity(ball, velocity)
-            this.state.circles.push(ball);
-            World.add(engine.world, ball);
-            if(this.state.circles.length > 100){
-              World.remove(engine.world, this.state.circles[this.state.circles.length-100])
-              this.state.circles.splice(1,0)
-            }
-          
+          this.handleEntitySpawn()
     });
 
-    Engine.run(engine);
-
     Render.run(render);
+    Runner.run(runner, engine);
   }
 
   render() {
