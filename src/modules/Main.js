@@ -22,7 +22,7 @@ export default function Main(props) {
                 spacing={24}
                 style={{display:'flex', justifyContent:'center'}}
             >
-                <Grid item xs={12} style={{display: 'flex', justifyContent:'center'}}>
+                <Grid item xs={12} style={{display: 'flex', justifyContent:'center', color: 'white', fontFamily: "Comic Sans MS, Comic Sans, cursive"}}>
                     <h1>KEYBored</h1>
                 </Grid>
 
