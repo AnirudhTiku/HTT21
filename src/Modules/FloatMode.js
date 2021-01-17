@@ -76,38 +76,9 @@ class FloatMode extends React.Component{
       // });
 
       document.addEventListener('keydown', event => {
-        var shape = Math.floor(Math.random()*3)
+        var shape = Math.floor(Math.random()*7 + 1)
 
-        if(shape === 1){
-        var ball = Bodies.circle(Math.random()*1800, Math.random()*860, 30, { restitution: 1, frictionAir: 0, friction: 0  })
-        var velocity = Vector.create(Math.random()*50 - 25, Math.random()*50 - 25)
-        var scale = Math.random()+0.5
-        Body.scale(ball, scale, scale)
-        Body.setDensity(ball, scale)
-        Body.setVelocity(ball, velocity)
-          this.state.balls.push(ball);
-          World.add(engine.world, ball);
-          if(this.state.balls.length > 50){
-            World.remove(engine.world, this.state.balls[this.state.balls.length-50])
-            this.state.balls.splice(1,0)
-          }
-        }
-        if(shape === 2){
-          var ball = Bodies.rectangle(Math.random()*1800, Math.random()*860, 30, 30, { restitution: 1, frictionAir: 0, friction: 0  })
-          var velocity = Vector.create(Math.random()*50 - 25, Math.random()*50 - 25)
-          var scale = Math.random()+0.5
-          Body.scale(ball, scale, scale)
-          Body.setDensity(ball, scale)
-          Body.setVelocity(ball, velocity)
-            this.state.balls.push(ball);
-            World.add(engine.world, ball);
-            if(this.state.balls.length > 50){
-              World.remove(engine.world, this.state.balls[this.state.balls.length-50])
-              this.state.balls.splice(1,0)
-            }
-          }
-          if(shape === 3){
-            var ball = Bodies.polygon(Math.random()*1800, Math.random()*860, 3, 30, { restitution: 1, frictionAir: 0, friction: 0  })
+            var ball = Bodies.polygon(Math.random()*1800, Math.random()*860, shape, 30, { restitution: 1, frictionAir: 0, friction: 0  })
             var velocity = Vector.create(Math.random()*50 - 25, Math.random()*50 - 25)
             var scale = Math.random()+0.5
             Body.scale(ball, scale, scale)
@@ -119,7 +90,7 @@ class FloatMode extends React.Component{
                 World.remove(engine.world, this.state.balls[this.state.balls.length-50])
                 this.state.balls.splice(1,0)
               }
-            }
+            
       });
     
 
