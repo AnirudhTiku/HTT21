@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react'
-import ReactDOM from 'react-dom'
-import Matter from 'matter-js'
+import React, { useEffect } from 'react';
+import Matter from 'matter-js';
+import { Button } from '@material-ui/core';
+import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
 
 class GravityMode extends React.Component{
     constructor(props) {
@@ -12,6 +13,8 @@ class GravityMode extends React.Component{
       }
     
       componentDidMount() {
+        const worldHeight = window.innerHeight-42;
+        const worldWidth = window.innerWidth-50;
         var Engine = Matter.Engine,
           Render = Matter.Render,
           World = Matter.World,
@@ -29,18 +32,18 @@ class GravityMode extends React.Component{
           element: this.refs.scene,
           engine: engine,
           options: {
-            width: 1920,
-            height: 965,
+            width: worldWidth,
+            height: worldHeight,
             wireframes: false,
           }
         });
   
         World.add(engine.world, [
           // walls
-          Bodies.rectangle(960, 0, 1920, 100, { isStatic: true, restitution: 1, friction: 0 }),
-          Bodies.rectangle(960, 965, 1920, 100, { isStatic: true, restitution: 1, friction: 0 }),
-          Bodies.rectangle(0, 483, 100, 966, { isStatic: true, restitution: 1, friction: 0 }),
-          Bodies.rectangle(1920, 483, 100, 966, { isStatic: true, restitution: 1, friction: 0 })
+        Bodies.rectangle(worldWidth/2, 0, worldWidth, 10, { isStatic: true, restitution: 1, friction: 0 }),
+        Bodies.rectangle(worldWidth/2, worldHeight, worldWidth, 10, { isStatic: true, restitution: 1, friction: 0 }),
+        Bodies.rectangle(0, worldHeight/2, 10, worldHeight, { isStatic: true, restitution: 1, friction: 0 }),
+        Bodies.rectangle(worldWidth, worldHeight/2, 10, worldHeight, { isStatic: true, restitution: 1, friction: 0 })
         ]);
     
     
@@ -69,12 +72,13 @@ class GravityMode extends React.Component{
             Body.scale(ball, scale, scale)
             Body.setDensity(ball, scale)
             Body.setVelocity(ball, velocity)
-            this.state.circles[this.state.counter] = ball
-            World.add(engine.world, this.state.circles[this.state.counter]);
-            this.state.counter += 1;
-            if(this.state.counter > 50){
-              World.remove(engine.world, this.state.circles[(this.state.counter)-50]);
+            this.state.circles.push(ball)
+            World.add(engine.world, ball);
+            if(this.state.circles.length > 100){
+              World.remove(engine.world, this.state.circles[(this.state.circles.length)-100]);
             }
+            this.state.circles.splice(1,0)
+
         });
     
         Engine.run(engine);
@@ -83,7 +87,14 @@ class GravityMode extends React.Component{
       }
     
       render() {
-        return <div ref="scene" />;
+        return (
+        <div ref="scene" style={{backgroundColor:'black', width:'100wh', height:'100vh'}}>
+          <Button variant="contained" color="secondary" onClick={()=>console.log('data')}>
+            Show Data
+          </Button>
+          <DeleteSweepIcon style={{fill:'orange', cursor:'pointer'}}/>
+        </div>
+        );
       }
     }
 
