@@ -88,16 +88,16 @@ class GravityMode extends React.Component {
       if(shape === 2){
         shape -= 1
       }
-          var ball = Bodies.polygon(Math.random()*1800, Math.random()*860, shape, 30, { restitution: 1, frictionAir: 0, friction: 0  })
+          var ball = Bodies.polygon(Math.random()*1800, Math.random()*860, shape, 30, { restitution: 0.5, frictionAir: 0, friction: 0  })
           var velocity = Vector.create(Math.random()*50 - 25, Math.random()*50 - 25)
-          var scale = Math.random()+0.5
+          var scale = Math.random()+0.7
           Body.scale(ball, scale, scale)
           Body.setDensity(ball, scale)
           Body.setVelocity(ball, velocity)
             this.state.circles.push(ball);
             World.add(engine.world, ball);
-            if(this.state.circles.length > 50){
-              World.remove(engine.world, this.state.circles[this.state.circles.length-50])
+            if(this.state.circles.length > 100){
+              World.remove(engine.world, this.state.circles[this.state.circles.length-100])
               this.state.circles.splice(1,0)
             }
           
