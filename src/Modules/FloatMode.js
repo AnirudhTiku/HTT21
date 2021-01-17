@@ -46,8 +46,6 @@ class FloatMode extends React.Component{
         Bodies.rectangle(worldWidth, worldHeight/2, 10, worldHeight, { isStatic: true, restitution: 1, friction: 0 })
       ]);
   
-      World.add(engine.world, [ballA, ballB]);
-  
       // add mouse control
       var mouse = Mouse.create(render.canvas),
         mouseConstraint = MouseConstraint.create(engine, {
